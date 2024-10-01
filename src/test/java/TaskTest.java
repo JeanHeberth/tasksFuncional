@@ -15,7 +15,7 @@ public class TaskTest {
     public void testAmbiente() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
-        WebDriver driver = new ChromeDriver(options);
+        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8015/tasks/");
         LocalDate dataFutura = LocalDate.now().plusDays(1);
 
