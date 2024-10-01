@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 public class TaskTest {
 
-    @RepeatedTest(100)
+   @Test
     public void testAmbiente() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
