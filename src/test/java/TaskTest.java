@@ -9,15 +9,25 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class TaskTest {
 
-   @Test
-    public void testAmbiente() {
+    public WebDriver getDriver() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
         WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8015/tasks/");
+        return driver;
+    }
+
+
+    @Test()
+    public void deveSalvarTarefaComSucesso() {
+
+        WebDriver driver = getDriver();
         LocalDate dataFutura = LocalDate.now().plusDays(1);
+
 
         WebElement botao = driver.findElement(By.id("addTodo"));
         botao.click();
@@ -31,13 +41,80 @@ public class TaskTest {
         WebElement btnSave = driver.findElement(By.xpath("//input[@value=\"Save\"]"));
         btnSave.click();
 
-        // processo de inserção de uma data Atual
-//        LocalDate dataAtual = LocalDate.now().plusDays(1);
-//        botao.click();
-//        inputTask.sendKeys("Tarefa 2");
-//        inputDueDate.sendKeys(dataAtual.toString());
-//        btnSave.click();
+        String messagem = driver.findElement(By.id("message")).getText();
+//        assertEquals("Sucess!", messagem);
 
+        driver.quit();
+
+    }
+
+    @Test()
+    public void NaoDeveSalvarTarefaSemDescricao() {
+
+        WebDriver driver = getDriver();
+        LocalDate dataFutura = LocalDate.now().plusDays(1);
+
+
+        WebElement botao = driver.findElement(By.id("addTodo"));
+        botao.click();
+
+        WebElement inputDueDate = driver.findElement(By.xpath("//input[@name=\"dueDate\"]"));
+        inputDueDate.sendKeys(dataFutura.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+        WebElement btnSave = driver.findElement(By.xpath("//input[@value=\"Save\"]"));
+        btnSave.click();
+
+        String messagem = driver.findElement(By.id("message")).getText();
+        assertEquals("Fill the task description", messagem);
+
+        driver.quit();
+
+    }
+
+    @Test()
+    public void NaoDeveSalvarTarefaSemData() {
+
+        WebDriver driver = getDriver();
+
+
+        WebElement botao = driver.findElement(By.id("addTodo"));
+        botao.click();
+
+        WebElement inputTask = driver.findElement(By.xpath("//input[@id=\"task\"]"));
+        inputTask.sendKeys("Tarefa 1");
+
+
+        WebElement btnSave = driver.findElement(By.xpath("//input[@value=\"Save\"]"));
+        btnSave.click();
+
+        String messagem = driver.findElement(By.id("message")).getText();
+        assertEquals("Fill the due date", messagem);
+
+        driver.quit();
+
+    }
+
+    @Test()
+    public void NaoDeveSalvarTarefaComDataPassada() {
+
+        WebDriver driver = getDriver();
+        LocalDate dataFutura = LocalDate.now().plusDays(-1);
+
+
+        WebElement botao = driver.findElement(By.id("addTodo"));
+        botao.click();
+
+        WebElement inputTask = driver.findElement(By.xpath("//input[@id=\"task\"]"));
+        inputTask.sendKeys("Tarefa 1");
+
+        WebElement inputDueDate = driver.findElement(By.xpath("//input[@name=\"dueDate\"]"));
+        inputDueDate.sendKeys(dataFutura.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+        WebElement btnSave = driver.findElement(By.xpath("//input[@value=\"Save\"]"));
+        btnSave.click();
+
+        String messagem = driver.findElement(By.id("message")).getText();
+        assertEquals("Due date must not be in past", messagem);
 
         driver.quit();
 
