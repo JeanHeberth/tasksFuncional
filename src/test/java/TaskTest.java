@@ -16,13 +16,13 @@ public class TaskTest {
     public WebDriver getDriver() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = new ChromeDriver(options);
         driver.get("http://localhost:8015/tasks/");
         return driver;
     }
 
 
-    @Test()
+    @RepeatedTest(100)
     public void deveSalvarTarefaComSucesso() {
 
         WebDriver driver = getDriver();
@@ -48,7 +48,7 @@ public class TaskTest {
 
     }
 
-    @Test()
+    @RepeatedTest(100)
     public void NaoDeveSalvarTarefaSemDescricao() {
 
         WebDriver driver = getDriver();
@@ -71,7 +71,7 @@ public class TaskTest {
 
     }
 
-    @Test()
+    @RepeatedTest(100)
     public void NaoDeveSalvarTarefaSemData() {
 
         WebDriver driver = getDriver();
@@ -94,7 +94,7 @@ public class TaskTest {
 
     }
 
-    @Test()
+    @RepeatedTest(100)
     public void NaoDeveSalvarTarefaComDataPassada() {
 
         WebDriver driver = getDriver();
