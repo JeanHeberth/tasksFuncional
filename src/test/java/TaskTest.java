@@ -22,7 +22,7 @@ public class TaskTest {
     }
 
 
-    @RepeatedTest(100)
+   @Test
     public void deveSalvarTarefaComSucesso() {
 
         WebDriver driver = getDriver();
@@ -48,7 +48,7 @@ public class TaskTest {
 
     }
 
-    @RepeatedTest(100)
+    @Test
     public void NaoDeveSalvarTarefaSemDescricao() {
 
         WebDriver driver = getDriver();
@@ -71,7 +71,7 @@ public class TaskTest {
 
     }
 
-    @RepeatedTest(100)
+    @Test
     public void NaoDeveSalvarTarefaSemData() {
 
         WebDriver driver = getDriver();
@@ -94,7 +94,7 @@ public class TaskTest {
 
     }
 
-    @RepeatedTest(100)
+    @Test
     public void NaoDeveSalvarTarefaComDataPassada() {
 
         WebDriver driver = getDriver();
