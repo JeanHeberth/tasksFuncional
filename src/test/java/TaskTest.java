@@ -17,7 +17,7 @@ public class TaskTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
         WebDriver driver = new ChromeDriver(options);
-        driver.get("http://localhost:8015/tasks/");
+        driver.get("http://localhost:8016/tasks/");
         return driver;
     }
 
